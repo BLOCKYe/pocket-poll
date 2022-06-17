@@ -13,12 +13,22 @@ import {useNavigate} from "react-router-dom";
 import Button from "../../../shared/components/Button/Button";
 import {MdSave} from "react-icons/md";
 import EditableAnswerItem from "../components/EditableAnswerItem";
+import app from "../../../core/config/firebase";
+import {doc, getFirestore, serverTimestamp, setDoc} from "firebase/firestore";
 
-export const initialAnswersList: IAnswer[] = [{content: '', id: uuidv4()}, {content: '', id: uuidv4()}]
+export const initialAnswersList: IAnswer[] =
+    [
+        {
+            content: '',
+            id: uuidv4(),
+            counter: 0
+        }
+    ]
 
 export interface IAnswer {
     content: string,
     id: string
+    counter: number
 }
 
 
@@ -30,6 +40,7 @@ const NewPollView: React.FC = () => {
     const [titleValue, setTitleValue] = useState<string>('')
     const [descriptionValue, setDescriptionValue] = useState<string>('')
     const [answers, setAnswers] = useState<IAnswer[]>(initialAnswersList)
+    const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
 
     /**
@@ -65,6 +76,7 @@ const NewPollView: React.FC = () => {
      * change answer value and
      * save it to state
      * @param e
+     * @param id
      */
 
     const handleAnswerValue = (e: React.ChangeEvent<HTMLInputElement>, id: string) => {
@@ -94,7 +106,8 @@ const NewPollView: React.FC = () => {
 
             const newItem: IAnswer = {
                 content: '',
-                id: uuidv4()
+                id: uuidv4(),
+                counter: 0
             }
 
             setAnswers([...newAnswersState, newItem])
@@ -111,10 +124,42 @@ const NewPollView: React.FC = () => {
      * create poll to it
      */
 
-    const createPoll = () => {
-        navigate('/' + uuidv4(), {replace: true})
+    const createPoll = async () => {
+        if (submitValidation()) return
+
+        setIsProcessing(true)
+        const generatedId = uuidv4()
+        const pollRef = doc(getFirestore(app), 'polls', generatedId)
+        const parseAnswers = answers.slice(0, -1)
+
+        const data: any = {
+            id: generatedId,
+            title: titleValue,
+            description: descriptionValue,
+            createdAt: serverTimestamp(),
+            answers: parseAnswers,
+            totalVotes: 0
+        }
+
+        await setDoc(pollRef, data)
+        setIsProcessing(false)
+
+        navigate('/' + generatedId, {replace: true})
     }
 
+
+    /**
+     * This observer is used to
+     * control button disabled status
+     */
+
+    const submitValidation = () => {
+        if (titleValue.length < 3) return true;
+        if (isProcessing) return true;
+        if (answers.length < 3) return true
+
+        return false;
+    }
 
     return (
         <div className={'grid place-items-center w-full'}>
@@ -147,7 +192,8 @@ const NewPollView: React.FC = () => {
                     </div>
 
                     <div className={'flex justify-end mt-5'}>
-                        <Button text={'Stwórz'} onClick={() => createPoll()} icon={<MdSave />} />
+                        <Button text={'Stwórz'} onClick={() => createPoll()} icon={<MdSave />}
+                            disabled={submitValidation()} />
                     </div>
                 </div>
             </div>

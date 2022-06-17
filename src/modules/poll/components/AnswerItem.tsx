@@ -6,7 +6,7 @@
  * Time: 16:26
 */
 
-import React, {useState} from 'react';
+import React from 'react';
 import {IAnswer} from "../views/SinglePollView";
 
 interface IEditableAnswerItemProps {
