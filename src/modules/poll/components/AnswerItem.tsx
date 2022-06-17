@@ -12,6 +12,7 @@ import {IAnswer} from "../views/SinglePollView";
 interface IEditableAnswerItemProps {
     data: IAnswer;
     index: number
+    totalVotes: number
 }
 
 const EditableAnswerItem: React.FC<IEditableAnswerItemProps> = (props) => {
@@ -41,7 +42,11 @@ const EditableAnswerItem: React.FC<IEditableAnswerItemProps> = (props) => {
             <div
                 className={'w-full py-2 px-2 md:px-5 ' +
                     'rounded-md'}>
-                {props.data.content}
+                {props.data?.content}
+            </div>
+
+            <div className={'whitespace-nowrap'}>
+                {props.data?.counter / props.totalVotes * 100}% ({props.data?.counter})
             </div>
         </div>
     );

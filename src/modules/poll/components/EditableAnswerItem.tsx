@@ -7,7 +7,7 @@
 */
 
 import React from 'react';
-import {IAnswer} from "../views/SinglePollView";
+import {IAnswer} from "../views/NewPollView";
 import Input from "../../../shared/components/Input/Input";
 
 interface IEditableAnswerItemProps {

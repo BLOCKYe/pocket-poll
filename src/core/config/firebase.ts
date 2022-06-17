@@ -1,7 +1,4 @@
-import firebase from "firebase/app";
-import 'firebase/firestore';
-
-require('dotenv')
+import firebase from "firebase/compat/app";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -12,9 +9,6 @@ const firebaseConfig = {
     appId: process.env.REACT_APP_APP_ID
 };
 
-console.log(firebaseConfig)
+const app = firebase.initializeApp(firebaseConfig);
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-export default firebase;
+export default app;

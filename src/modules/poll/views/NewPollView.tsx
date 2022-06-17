@@ -16,11 +16,11 @@ import EditableAnswerItem from "../components/EditableAnswerItem";
 
 export const initialAnswersList: IAnswer[] = [{content: '', id: uuidv4()}, {content: '', id: uuidv4()}]
 
-
-interface IAnswer {
+export interface IAnswer {
     content: string,
     id: string
 }
+
 
 const NewPollView: React.FC = () => {
     const navigate = useNavigate();
@@ -115,6 +115,7 @@ const NewPollView: React.FC = () => {
         navigate('/' + uuidv4(), {replace: true})
     }
 
+
     return (
         <div className={'grid place-items-center w-full'}>
             <div className={'w-full max-w-4xl grid p-3 md:p-5 min-h-screen content-center'}>
@@ -129,7 +130,6 @@ const NewPollView: React.FC = () => {
                     <Input value={descriptionValue} onChange={handleDescriptionValue}
                         placeholder={'Krótki opis ankiety..'} />
                 </div>
-
 
                 {/* <--- Answers ---> */}
                 <div className={'px-2 md:px-5'}>
