@@ -30,11 +30,11 @@ const HomeView: React.FC = () => {
             <div className={'w-full max-w-4xl grid place-items-center p-3 md:p-5 min-h-screen content-center'}>
 
                 {/* <--- Header ---> */}
-                <div className={'text-4xl md:text-5xl font-bold'}>
+                <div className={'text-4xl md:text-5xl font-bold scale-up-center-1'}>
                     Pocket Poll
                 </div>
 
-                <div className={'text-white-dark text-xl mt-5 text-center'}>
+                <div className={'text-white-dark text-xl mt-5 text-center scale-up-center-2'}>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium cumque cupiditate delectus
                     doloribus dolorum <b className={'text-white-light'}>exercitationem</b> expedita facilis hic incidunt
                     ipsam maxime numquam placeat porro ratione reiciendis <b
@@ -44,7 +44,7 @@ const HomeView: React.FC = () => {
                     vulputate libero elementum et.
                 </div>
 
-                <div className={'mt-5'}>
+                <div className={'mt-5 scale-up-center-3'}>
                     <Button text={'Stwórz ankietę!'} icon={<BsArrowRight />} onClick={() => navigateToRoute('/new')} />
                 </div>
 

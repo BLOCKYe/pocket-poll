@@ -167,17 +167,17 @@ const NewPollView: React.FC = () => {
 
 
                 {/* <--- Header with title and description ---> */}
-                <div className={'text-4xl md:text-5xl font-bold'}>
+                <div className={'text-4xl md:text-5xl font-bold scale-up-center-1'}>
                     <Input value={titleValue} onChange={handleTitleValue} placeholder={'Wprowadź pytanie...'} />
                 </div>
 
-                <div className={'text-white-dark text-xl mt-3 w-full'}>
+                <div className={'text-white-dark text-xl mt-3 w-full scale-up-center-2'}>
                     <Input value={descriptionValue} onChange={handleDescriptionValue}
                         placeholder={'Krótki opis ankiety..'} />
                 </div>
 
                 {/* <--- Answers ---> */}
-                <div className={'px-2 md:px-5'}>
+                <div className={'px-2 md:px-5  scale-up-center-3'}>
                     <div className={'font-bold text-color-main text-xs mt-10'}>
                         ODPOWIEDZI
                     </div>
