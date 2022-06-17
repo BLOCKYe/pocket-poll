@@ -12,8 +12,9 @@ import {v4 as uuidv4} from 'uuid';
 import {useNavigate} from "react-router-dom";
 import Button from "../../../shared/components/Button/Button";
 import {MdSave} from "react-icons/md";
+import EditableAnswerItem from "../components/EditableAnswerItem";
 
-export const initialAnswersList: IAnswer[] = [{content: '', id: '1'}, {content: '', id: uuidv4()}]
+export const initialAnswersList: IAnswer[] = [{content: '', id: uuidv4()}, {content: '', id: uuidv4()}]
 
 
 interface IAnswer {
@@ -84,7 +85,7 @@ const NewPollView: React.FC = () => {
     /**
      * This method is used to
      * add new answer when
-     * last is not blank
+     * last is not empty
      */
 
     const fullAnswersObserver = () => {
@@ -100,6 +101,10 @@ const NewPollView: React.FC = () => {
         }
     }
 
+    useEffect(() => {
+        fullAnswersObserver()
+    }, [answers])
+
 
     /**
      * This function is used to
@@ -110,13 +115,9 @@ const NewPollView: React.FC = () => {
         navigate('/' + uuidv4(), {replace: true})
     }
 
-    useEffect(() => {
-        fullAnswersObserver()
-    }, [answers])
-
     return (
         <div className={'grid place-items-center w-full'}>
-            <div className={'w-full max-w-4xl grid p-2 md:p-5 min-h-screen content-center'}>
+            <div className={'w-full max-w-4xl grid p-3 md:p-5 min-h-screen content-center'}>
 
 
                 {/* <--- Header with title and description ---> */}
@@ -140,17 +141,8 @@ const NewPollView: React.FC = () => {
                     {/* <--- Dislay all answers ---> */}
                     <div className="grid gap-3 mt-5">
                         {[].slice.call(answers).map((answer: IAnswer, idx: number) =>
-                            <div key={answer.id} className={'text-white-dark text-md rounded bg-dark-light w-full ' +
-                                'flex gap-1 items-center px-3 border-[1px] border-dark-shadow transition-all ' +
-                                'hover:border-color-main'}>
-                                <div className={'font-bold text-color-main text-xl'}>
-                                    {idx + 1}.
-                                </div>
-
-                                <Input value={answer.content} placeholder={'Wprowadź treść...'} className={''}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleAnswerValue(e, answer.id)}
-                                />
-                            </div>
+                            <EditableAnswerItem data={answer} index={idx} key={answer.id}
+                                handleAnswerValue={(e: React.ChangeEvent<HTMLInputElement>) => handleAnswerValue(e, answer.id)} />
                         )}
                     </div>
 

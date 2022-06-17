@@ -17,8 +17,8 @@ interface IButtonProps {
 const Button: React.FC<IButtonProps> = (props) => {
 
 
-    const buttonStyles = 'flex items-center bg-dark-black rounded-md text-center px-10 py-3 gap-5 text-lg ' +
-        'md:text-xl transition-all hover:bg-dark-light'
+    const buttonStyles = 'flex items-center bg-dark-black rounded-md text-center px-5 md:px-10 py-3 gap-5 text-lg ' +
+        'transition-all hover:bg-dark-light'
 
     return (
         <button className={buttonStyles} onClick={() => props.onClick()}>

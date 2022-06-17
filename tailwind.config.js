@@ -18,7 +18,8 @@ module.exports = {
                     dark: '#D0D5D4'
                 },
                 color: {
-                    main: '#FFD479'
+                    main: '#FFD479',
+                    light: '#FFECC3'
                 },
             },
         },
