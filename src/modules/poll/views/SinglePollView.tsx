@@ -6,12 +6,12 @@
  * Time: 15:01
 */
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from "../../../shared/components/Button/Button";
 import AnswerItem from "../components/AnswerItem";
 import {HiShare} from "react-icons/hi";
 import "firebase/compat/firestore";
-import {getFirestore, doc} from 'firebase/firestore';
+import {getFirestore, doc, updateDoc, increment} from 'firebase/firestore';
 import app from "../../../core/config/firebase";
 import {useDocument} from "react-firebase-hooks/firestore";
 import {useParams} from "react-router-dom";
@@ -27,6 +27,7 @@ const SinglePollView: React.FC = () => {
 
     /* States */
     const [isCopied, setIsCopied] = useState<boolean>(false)
+    const [voted, setVoted] = useState<IAnswer>()
 
 
     /**
@@ -40,6 +41,57 @@ const SinglePollView: React.FC = () => {
     }
 
 
+    /**
+     * This method is used to
+     * vote for an answer
+     * @param answer
+     */
+
+    const vote = async (answer: IAnswer) => {
+        if (!value) return
+        if (!value.data()) return;
+
+        // get user votes history
+        let historyCopy = JSON.parse(localStorage.getItem("history")!) || []
+
+        // block multi vote if user already voted
+        if (historyCopy.find((item: any) => item.id === value.data()?.id)) return;
+
+        const historyItem = {
+            id: value?.data()?.id,
+            answer: answer
+        }
+
+        historyCopy = [...historyCopy, historyItem]
+        localStorage.setItem("history", JSON.stringify(historyCopy))
+        setVoted(answer)
+
+        const pollRef = doc(getFirestore(app), 'polls', id!)
+        await updateDoc(pollRef, {
+            totalVotes: increment(1)
+        })
+    }
+
+
+    /**
+     * This method is used to
+     * set last answer for this poll
+     */
+
+    const findHistoryVote = () => {
+        if (!value) return
+        if (!value.data()) return;
+
+        // get user votes history
+        let historyCopy = JSON.parse(localStorage.getItem("history")!) || []
+
+        // find answer for this poll
+        const lastVote = historyCopy.find((item: any) => item.id === value.data()?.id)
+
+        if (!lastVote) return;
+        setVoted(lastVote.answer)
+    }
+
     /* <--- Firebase ---> */
     const [value, loading] = useDocument(
         doc(getFirestore(app), 'polls', id!),
@@ -48,6 +100,10 @@ const SinglePollView: React.FC = () => {
         }
     );
 
+
+    useEffect(() => {
+        findHistoryVote()
+    }, [value])
 
     return (
         <div className={'grid place-items-center w-full'}>
@@ -88,7 +144,8 @@ const SinglePollView: React.FC = () => {
                             {/* <--- Dislay all answers ---> */}
                             <div className="grid gap-3 mt-5">
                                 {(value && value.data()!.answers).map((answer: IAnswer, idx: number) =>
-                                    <AnswerItem data={answer} index={idx} key={answer.id} totalVotes={value && value.data()?.totalVotes}/>
+                                    <AnswerItem data={answer} index={idx} key={answer.id} voted={voted} vote={vote}
+                                        totalVotes={value && value.data()?.totalVotes} />
                                 )}
                             </div>
                         </div>

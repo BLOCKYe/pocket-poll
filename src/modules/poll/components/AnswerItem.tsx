@@ -13,10 +13,11 @@ interface IEditableAnswerItemProps {
     data: IAnswer;
     index: number
     totalVotes: number
+    voted: IAnswer | undefined
+    vote: (answer: IAnswer) => void;
 }
 
 const EditableAnswerItem: React.FC<IEditableAnswerItemProps> = (props) => {
-    const [isSelected, setIsSelected] = useState<boolean>(false)
 
 
     /**
@@ -25,17 +26,17 @@ const EditableAnswerItem: React.FC<IEditableAnswerItemProps> = (props) => {
      */
 
     const typeFactory = () => {
-        if (!isSelected) return 'text-white-dark text-md rounded bg-dark-light w-full flex gap-1 items-center px-3' +
+        if (props.voted?.id !== props.data.id) return 'text-white-dark text-md rounded bg-dark-light w-full flex gap-1 items-center px-3' +
             ' border-[1px] border-dark-shadow transition-all hover:border-color-main cursor-pointer'
 
         else return 'text-dark-main text-md rounded bg-color-main w-full flex gap-1 items-center px-3' +
-            ' border-[1px] border-dark-shadow transition-all hover:border-color-main cursor-pointer'
+            ' border-[1px] border-color-light transition-all hover:border-color-main cursor-pointer'
     }
 
     return (
-        <div className={typeFactory()} onClick={() => setIsSelected(!isSelected)}>
+        <div className={typeFactory()} onClick={() => props.vote(props.data)}>
 
-            <div className={`font-bold ${isSelected ? '' : 'text-color-main'} text-xl pl-2`}>
+            <div className={`font-bold ${props.voted?.id === props.data.id ? '' : 'text-color-main'} text-xl pl-2`}>
                 {props.index + 1}.
             </div>
 
