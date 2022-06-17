@@ -11,15 +11,19 @@ import React from 'react';
 import firebase from "./core/config/firebase";
 import HomeView from "./modules/home/views/HomeView";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import NewPollView from "./modules/poll/views/NewPollView";
+import SinglePollView from "./modules/poll/views/SinglePollView";
 
 const App: React.FC = () => {
 
     return (
-      <BrowserRouter>
-          <Routes>
-              <Route path={'/'} element={<HomeView/>}/>
-          </Routes>
-      </BrowserRouter>
+        <BrowserRouter>
+            <Routes>
+                <Route path={'/'} element={<HomeView />} />
+                <Route path={'/new'} element={<NewPollView />} />
+                <Route path={'/:id'} element={<SinglePollView />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
 

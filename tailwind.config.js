@@ -9,7 +9,8 @@ module.exports = {
                 dark: {
                     main: '#282C34',
                     light: '#393E4B',
-                    black: '#1C1E24'
+                    black: '#1C1E24',
+                    shadow: '#575B67'
                 },
                 white: {
                     main: '#EEEEEE',

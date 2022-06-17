@@ -27,7 +27,7 @@ const HomeView: React.FC = () => {
 
     return (
         <div className={'grid place-items-center w-full'}>
-            <div className={'w-full max-w-4xl grid place-items-center p-5 min-h-screen content-center'}>
+            <div className={'w-full max-w-4xl grid place-items-center p-2 md:p-5 min-h-screen content-center'}>
 
                 {/* <--- Header ---> */}
                 <div className={'text-4xl md:text-5xl font-bold'}>
