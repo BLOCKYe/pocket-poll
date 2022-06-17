@@ -180,7 +180,7 @@ const NewPollView: React.FC = () => {
 
                 <div className={'text-white-dark text-xl mt-3 w-full'}>
                     <Input value={descriptionValue} onChange={handleDescriptionValue}
-                        placeholder={'Krótki opis ankiety..'} />
+                        placeholder={'Krótki opis ankiety...'} />
                 </div>
 
                 {/* <--- Answers ---> */}
@@ -190,7 +190,7 @@ const NewPollView: React.FC = () => {
                     </div>
 
 
-                    {/* <--- Dislay all answers ---> */}
+                    {/* <--- Display all answers ---> */}
                     <div className="grid gap-3 mt-5">
                         {[].slice.call(answers).map((answer: IAnswer, idx: number) =>
                             <EditableAnswerItem data={answer} index={idx} key={answer.id}

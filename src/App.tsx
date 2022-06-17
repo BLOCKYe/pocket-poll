@@ -8,7 +8,6 @@
 
 import React from 'react';
 
-import firebase from "./core/config/firebase";
 import HomeView from "./modules/home/views/HomeView";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import NewPollView from "./modules/poll/views/NewPollView";
