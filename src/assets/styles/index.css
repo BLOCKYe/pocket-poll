@@ -9,11 +9,16 @@ body {
   font-size: 16px;
   color: #EEEEEE;
   background-color: #282C34;
+  letter-spacing: 0.3px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 @tailwind base;
