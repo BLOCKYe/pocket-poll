@@ -64,6 +64,8 @@ const SinglePollView: React.FC = () => {
     const vote = async (answer: IAnswer) => {
         let historyCopy = getUserHistory()?.historyCopy
 
+        if (getUserHistory()?.lastVote) return;
+
         // create history object
         const historyItem = {
             id: value?.data()?.id,
