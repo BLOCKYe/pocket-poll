@@ -41,6 +41,13 @@ const SinglePollView: React.FC = () => {
     }
 
 
+    /**
+     * This method is used to
+     * get user votes history
+     * and find answer for
+     * current poll
+     */
+
     const getUserHistory = () => {
         if (!value) return
         if (!value.data()) return;

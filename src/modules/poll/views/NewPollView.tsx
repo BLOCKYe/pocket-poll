@@ -128,23 +128,30 @@ const NewPollView: React.FC = () => {
         if (submitValidation()) return
 
         setIsProcessing(true)
-        const generatedId = uuidv4()
-        const pollRef = doc(getFirestore(app), 'polls', generatedId)
-        const parseAnswers = answers.slice(0, -1)
 
-        const data: any = {
-            id: generatedId,
-            title: titleValue,
-            description: descriptionValue,
-            createdAt: serverTimestamp(),
-            answers: parseAnswers,
-            totalVotes: 0
+        try {
+            const generatedId = uuidv4()
+            const pollRef = doc(getFirestore(app), 'polls', generatedId)
+            const parseAnswers = answers.slice(0, -1)
+
+            const data: any = {
+                id: generatedId,
+                title: titleValue,
+                description: descriptionValue,
+                createdAt: serverTimestamp(),
+                answers: parseAnswers,
+                totalVotes: 0
+            }
+
+            await setDoc(pollRef, data)
+            setIsProcessing(false)
+
+            navigate('/' + generatedId, {replace: true})
+        } catch (e) {
+            alert('Wystąpił błąd, spróbuj ponownie za kilka minut')
+            setIsProcessing(false)
         }
 
-        await setDoc(pollRef, data)
-        setIsProcessing(false)
-
-        navigate('/' + generatedId, {replace: true})
     }
 
 

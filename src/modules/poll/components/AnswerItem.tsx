@@ -26,11 +26,22 @@ const EditableAnswerItem: React.FC<IEditableAnswerItemProps> = (props) => {
      */
 
     const typeFactory = () => {
-        if (props.voted?.id !== props.data.id) return 'text-white-dark text-md rounded bg-dark-light w-full flex gap-1 items-center px-3' +
-        ` border-[1px] border-dark-shadow transition-all ${props.voted ? 'cursor-default' : 'cursor-pointer hover:border-color-main'}`
+        if (props.voted?.id !== props.data.id) return 'text-white-dark text-md rounded bg-dark-light w-full flex gap-1 items-center px-3 relative' +
+            ` border-[1px] border-dark-shadow transition-all ${props.voted ? 'cursor-default' : 'cursor-pointer hover:border-color-main'}`
 
-        else return 'text-dark-main text-md rounded bg-color-main w-full flex gap-1 items-center px-3' +
+        else return 'text-dark-main text-md rounded bg-color-main w-full flex gap-1 items-center px-3 relative' +
             ` border-[1px] border-color-light transition-all ${props.voted ? 'cursor-default' : 'cursor-pointer hover:border-color-main'}`
+    }
+
+
+    /**
+     * This factory is used to
+     * display status
+     */
+
+    const resultFactory = () => {
+        if(props.voted?.id !== props.data.id) return `absolute top-0 left-0 h-full bg-dark-shadow z-10 transition-all`
+        return `absolute top-0 left-0 h-full bg-color-light z-10 transition-all`
     }
 
 
@@ -56,19 +67,21 @@ const EditableAnswerItem: React.FC<IEditableAnswerItemProps> = (props) => {
     return (
         <div className={typeFactory()} onClick={() => props.vote(props.data)}>
 
-            <div className={`font-bold ${props.voted?.id === props.data.id ? '' : 'text-color-main'} text-xl pl-2`}>
+            <div className={`font-bold ${props.voted?.id === props.data.id ? '' : 'text-color-main'} text-xl pl-2 z-20`}>
                 {props.index + 1}.
             </div>
 
             <div
-                className={'w-full py-2 px-2 md:px-5 ' +
+                className={'w-full py-2 px-2 md:px-5 z-20 ' +
                     'rounded-md'}>
                 {props.data?.content}
             </div>
 
-            <div className={'whitespace-nowrap font-bold'}>
+            <div className={'whitespace-nowrap font-bold z-20'}>
                 {computePercentage()}% ({props.data?.counter})
             </div>
+
+            <div className={resultFactory()} style={{width: `${computePercentage()}%`}}/>
         </div>
     );
 };
