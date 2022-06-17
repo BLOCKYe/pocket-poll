@@ -139,7 +139,7 @@ const SinglePollView: React.FC = () => {
 
                 {/* <--- Display after end of loading ---> */}
                 {!loading && value && value.data() !== undefined && (
-                    <div className={'scale-up-center-1'}>
+                    <div className={'fade-in'}>
                         {/* <--- Header with title and description ---> */}
                         <div className={'text-4xl md:text-5xl font-bold'}>
                             {value && value.data()?.title}

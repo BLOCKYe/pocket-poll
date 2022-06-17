@@ -20,7 +20,7 @@ const EditableAnswerItem: React.FC<IEditableAnswerItemProps> = (props) => {
     return (
         <div className={'text-white-dark text-md rounded bg-dark-light w-full ' +
             'flex gap-1 items-center px-3 border-[1px] border-dark-shadow transition-all ' +
-            'hover:border-color-main scale-up-center-2'}>
+            'hover:border-color-main fade-in'}>
 
             <div className={'font-bold text-color-main text-xl pl-2'}>
                 {props.index + 1}.

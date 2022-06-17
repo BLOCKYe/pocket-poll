@@ -163,21 +163,21 @@ const NewPollView: React.FC = () => {
 
     return (
         <div className={'grid place-items-center w-full'}>
-            <div className={'w-full max-w-4xl grid p-3 md:p-5 min-h-screen content-center'}>
+            <div className={'w-full max-w-4xl grid p-3 md:p-5 min-h-screen content-center fade-in'}>
 
 
                 {/* <--- Header with title and description ---> */}
-                <div className={'text-4xl md:text-5xl font-bold scale-up-center-1'}>
+                <div className={'text-4xl md:text-5xl font-bold'}>
                     <Input value={titleValue} onChange={handleTitleValue} placeholder={'Wprowadź pytanie...'} />
                 </div>
 
-                <div className={'text-white-dark text-xl mt-3 w-full scale-up-center-2'}>
+                <div className={'text-white-dark text-xl mt-3 w-full'}>
                     <Input value={descriptionValue} onChange={handleDescriptionValue}
                         placeholder={'Krótki opis ankiety..'} />
                 </div>
 
                 {/* <--- Answers ---> */}
-                <div className={'px-2 md:px-5  scale-up-center-3'}>
+                <div className={'px-2 md:px-5'}>
                     <div className={'font-bold text-color-main text-xs mt-10'}>
                         ODPOWIEDZI
                     </div>
