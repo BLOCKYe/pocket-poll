@@ -9,7 +9,7 @@
 import React, {useEffect, useState} from 'react';
 import Input from "../../../shared/components/Input/Input";
 import {v4 as uuidv4} from 'uuid';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Button from "../../../shared/components/Button/Button";
 import {MdSave} from "react-icons/md";
 import EditableAnswerItem from "../components/EditableAnswerItem";
@@ -191,7 +191,12 @@ const NewPollView: React.FC = () => {
                         )}
                     </div>
 
-                    <div className={'flex justify-end mt-5'}>
+                    <div className={'flex justify-between gap-3 mt-5 flex-wrap'}>
+                        <Link to={'/'}>
+                            <Button text={'Strona główna'} onClick={() => {
+                            }} />
+                        </Link>
+
                         <Button text={'Stwórz'} onClick={() => createPoll()} icon={<MdSave />}
                             disabled={submitValidation()} />
                     </div>

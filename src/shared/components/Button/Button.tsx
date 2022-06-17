@@ -13,6 +13,7 @@ interface IButtonProps {
     icon?: React.ReactNode;
     onClick: () => void;
     disabled?: boolean
+    className?: string
 }
 
 const Button: React.FC<IButtonProps> = (props) => {
@@ -22,7 +23,7 @@ const Button: React.FC<IButtonProps> = (props) => {
         'transition-all hover:bg-dark-light disabled:opacity-10 disabled:hover:bg-dark-black'
 
     return (
-        <button className={buttonStyles} onClick={() => props.onClick()} disabled={props.disabled}>
+        <button className={buttonStyles + " " + props.className} onClick={() => props.onClick()} disabled={props.disabled}>
             {props.text} {props.icon}
         </button>
     );

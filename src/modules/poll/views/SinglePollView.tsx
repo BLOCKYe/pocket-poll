@@ -14,7 +14,7 @@ import "firebase/compat/firestore";
 import {getFirestore, doc, updateDoc, increment} from 'firebase/firestore';
 import app from "../../../core/config/firebase";
 import {useDocument} from "react-firebase-hooks/firestore";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 export interface IAnswer {
     content: string,
@@ -41,6 +41,20 @@ const SinglePollView: React.FC = () => {
     }
 
 
+    const getUserHistory = () => {
+        if (!value) return
+        if (!value.data()) return;
+
+
+        // get user votes history
+        const historyCopy = JSON.parse(localStorage.getItem("history")!) || []
+
+        // find answer for this poll
+        const lastVote = historyCopy.find((item: any) => item.id === value.data()?.id)
+
+        return {historyCopy, lastVote}
+    }
+
     /**
      * This method is used to
      * vote for an answer
@@ -48,27 +62,33 @@ const SinglePollView: React.FC = () => {
      */
 
     const vote = async (answer: IAnswer) => {
-        if (!value) return
-        if (!value.data()) return;
+        let historyCopy = getUserHistory()?.historyCopy
 
-        // get user votes history
-        let historyCopy = JSON.parse(localStorage.getItem("history")!) || []
-
-        // block multi vote if user already voted
-        if (historyCopy.find((item: any) => item.id === value.data()?.id)) return;
-
+        // create history object
         const historyItem = {
             id: value?.data()?.id,
             answer: answer
         }
 
+        // add new poll with answer to history
         historyCopy = [...historyCopy, historyItem]
         localStorage.setItem("history", JSON.stringify(historyCopy))
         setVoted(answer)
 
+        // increment answer counter
+        const newAnswers = value?.data()?.answers.map((stateAnswer: IAnswer) => {
+            if (stateAnswer.id === answer.id) {
+                return {...stateAnswer, counter: stateAnswer.counter + 1}
+            }
+
+            return stateAnswer
+        })
+
+        // save to db
         const pollRef = doc(getFirestore(app), 'polls', id!)
         await updateDoc(pollRef, {
-            totalVotes: increment(1)
+            totalVotes: increment(1),
+            answers: newAnswers
         })
     }
 
@@ -79,18 +99,12 @@ const SinglePollView: React.FC = () => {
      */
 
     const findHistoryVote = () => {
-        if (!value) return
-        if (!value.data()) return;
-
-        // get user votes history
-        let historyCopy = JSON.parse(localStorage.getItem("history")!) || []
-
-        // find answer for this poll
-        const lastVote = historyCopy.find((item: any) => item.id === value.data()?.id)
+        const lastVote = getUserHistory()?.lastVote
 
         if (!lastVote) return;
         setVoted(lastVote.answer)
     }
+
 
     /* <--- Firebase ---> */
     const [value, loading] = useDocument(
@@ -151,10 +165,17 @@ const SinglePollView: React.FC = () => {
                         </div>
 
 
-                        <div className={'flex justify-end mt-5'}>
+                        <div className={'flex justify-between gap-3 mt-5 flex-wrap'}>
+                            <Link to={'/'}>
+                                <Button text={'Strona główna'} onClick={() => {
+                                }} />
+                            </Link>
+
                             <Button text={isCopied ? 'Skopiowano link!' : 'Udostępnij'} onClick={() => sharePoll()}
                                 icon={<HiShare />} />
                         </div>
+
+
                     </>
                 )}
             </div>

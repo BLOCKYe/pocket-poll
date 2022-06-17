@@ -27,10 +27,30 @@ const EditableAnswerItem: React.FC<IEditableAnswerItemProps> = (props) => {
 
     const typeFactory = () => {
         if (props.voted?.id !== props.data.id) return 'text-white-dark text-md rounded bg-dark-light w-full flex gap-1 items-center px-3' +
-            ' border-[1px] border-dark-shadow transition-all hover:border-color-main cursor-pointer'
+        ` border-[1px] border-dark-shadow transition-all ${props.voted ? 'cursor-default' : 'cursor-pointer hover:border-color-main'}`
 
         else return 'text-dark-main text-md rounded bg-color-main w-full flex gap-1 items-center px-3' +
-            ' border-[1px] border-color-light transition-all hover:border-color-main cursor-pointer'
+            ` border-[1px] border-color-light transition-all ${props.voted ? 'cursor-default' : 'cursor-pointer hover:border-color-main'}`
+    }
+
+
+    /**
+     * This method is used to
+     * compute percentage of
+     * current answer
+     */
+
+    const computePercentage = () => {
+        if (!props.data?.counter) return 0;
+        if (!props?.totalVotes) return 0;
+
+        if (props?.totalVotes === 0) return 0
+        if (props.data?.counter === 0) return 0
+
+        const result = props.data?.counter / props.totalVotes * 100
+
+        return result.toFixed(0)
+
     }
 
     return (
@@ -46,8 +66,8 @@ const EditableAnswerItem: React.FC<IEditableAnswerItemProps> = (props) => {
                 {props.data?.content}
             </div>
 
-            <div className={'whitespace-nowrap'}>
-                {props.data?.counter / props.totalVotes * 100}% ({props.data?.counter})
+            <div className={'whitespace-nowrap font-bold'}>
+                {computePercentage()}% ({props.data?.counter})
             </div>
         </div>
     );
