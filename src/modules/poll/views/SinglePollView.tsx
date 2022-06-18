@@ -15,6 +15,7 @@ import {getFirestore, doc, updateDoc, increment} from 'firebase/firestore';
 import app from "../../../core/config/firebase";
 import {useDocument} from "react-firebase-hooks/firestore";
 import {Link, useParams} from "react-router-dom";
+import Spinner from "../../../shared/components/Spinner/Spinner";
 
 export interface IAnswer {
     content: string,
@@ -130,10 +131,10 @@ const SinglePollView: React.FC = () => {
 
     return (
         <div className={'grid place-items-center w-full'}>
-            <div className={'w-full max-w-4xl grid p-3 md:p-5 min-h-screen content-center'}>
+            <div className={'w-full max-w-4xl grid p-3 pt-20 md:p-5 md:min-h-screen content-center'}>
 
                 {loading && (
-                    <div>Ładowanie danych</div>
+                    <div className={'flex justify-center'}><Spinner/></div>
                 )}
 
 

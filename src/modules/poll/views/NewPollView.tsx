@@ -170,7 +170,7 @@ const NewPollView: React.FC = () => {
 
     return (
         <div className={'grid place-items-center w-full'}>
-            <div className={'w-full max-w-4xl grid p-3 md:p-5 min-h-screen content-center fade-in'}>
+            <div className={'w-full max-w-4xl grid p-3 pt-20 md:p-5 md:min-h-screen content-center fade-in'}>
 
 
                 {/* <--- Header with title and description ---> */}
