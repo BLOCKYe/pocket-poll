@@ -17,6 +17,7 @@ import {useDocument} from "react-firebase-hooks/firestore";
 import {Link, useParams} from "react-router-dom";
 import Spinner from "../../../shared/components/Spinner/Spinner";
 import {useTitle} from "../../../core/helpers/useTitle";
+import { MdOutlineDateRange } from 'react-icons/md';
 
 export interface IAnswer {
     content: string,
@@ -164,8 +165,8 @@ const SinglePollView: React.FC = () => {
                     <div className={'fade-in'}>
                         {/* <--- Header with createdAt date, title and description ---> */}
 
-                        <div className={'text-xs opacity-30 mb-1 text-end'}>
-                            {value && getDate(value.data()?.createdAt?.seconds)}
+                        <div className={'text-xs opacity-30 mb-3 flex gap-1 items-center'}>
+                          <MdOutlineDateRange/>  {value && getDate(value.data()?.createdAt?.seconds)}
                         </div>
 
                         <div className={'text-4xl md:text-5xl font-bold'}>

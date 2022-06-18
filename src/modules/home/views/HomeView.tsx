@@ -35,13 +35,7 @@ const HomeView: React.FC = () => {
                 </div>
 
                 <div className={'text-white-dark text-xl mt-5 text-center scale-up-center-2'}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium cumque cupiditate delectus
-                    doloribus dolorum <b className={'text-white-light'}>exercitationem</b> expedita facilis hic incidunt
-                    ipsam maxime numquam placeat porro ratione reiciendis <b
-                    className={'text-color-main'}>reprehenderit</b> repudiandae, sed sint! Integer malesuada non risus
-                    vel imperdiet. Nullam nec enim ante. Nullam eleifend, augue ac cursus vestibulum, tortor eros
-                    condimentum purus, vitae sollicitudin libero ipsum ut lacus. Fusce pulvinar lectus felis, vel
-                    vulputate libero elementum et.
+                    Tworzenie <b className={'text-white-light'}>ankiet</b> nigdy nie było tak proste! <b className={'text-color-main'}>Pocket Poll</b> to ultra szybka aplikacja pozwalająca na sporządzanie w <b className={'text-white-light'}>pełni anonimowych</b> sondaży. Intuicyjny i prosty interfejs sprawia, że <b className={'text-white-light'}>każda osoba</b> już w kilka chwil może dzielić się wynikami swojej ankiety! Rezultaty aktualizowane są na <b className={'text-white-light'}>bieżąco</b>, dlatego prezentowane dane są zawsze aktualne.
                 </div>
 
                 <div className={'mt-5 scale-up-center-3'}>
