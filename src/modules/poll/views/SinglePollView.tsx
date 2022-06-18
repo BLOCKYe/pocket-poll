@@ -11,11 +11,12 @@ import Button from "../../../shared/components/Button/Button";
 import AnswerItem from "../components/AnswerItem";
 import {HiShare} from "react-icons/hi";
 import "firebase/compat/firestore";
-import {getFirestore, doc, updateDoc, increment} from 'firebase/firestore';
+import {doc, getFirestore, increment, updateDoc} from 'firebase/firestore';
 import app from "../../../core/config/firebase";
 import {useDocument} from "react-firebase-hooks/firestore";
 import {Link, useParams} from "react-router-dom";
 import Spinner from "../../../shared/components/Spinner/Spinner";
+import {useTitle} from "../../../core/helpers/useTitle";
 
 export interface IAnswer {
     content: string,
@@ -116,6 +117,17 @@ const SinglePollView: React.FC = () => {
     }
 
 
+    /**
+     * This method is used to
+     * get human date from
+     * seconds
+     * @param seconds
+     */
+
+    const getDate = (seconds: number):string => {
+        return new Date(seconds * 1000).toLocaleString()
+    }
+
     /* <--- Firebase ---> */
     const [value, loading] = useDocument(
         doc(getFirestore(app), 'polls', id!),
@@ -124,6 +136,8 @@ const SinglePollView: React.FC = () => {
         }
     );
 
+    // Change title
+    useTitle(value?.data()?.title)
 
     useEffect(() => {
         findHistoryVote()
@@ -139,8 +153,8 @@ const SinglePollView: React.FC = () => {
 
 
                 {!loading && value && value.data() === undefined && (
-                    <div className={'text-4xl md:text-5xl font-bold'}>
-                        Ankieta nie istnieje
+                    <div className={'text-4xl md:text-5xl font-bold text-center'}>
+                        Ankieta nie istnieje.
                     </div>
                 )}
 
@@ -148,12 +162,17 @@ const SinglePollView: React.FC = () => {
                 {/* <--- Display after end of loading ---> */}
                 {!loading && value && value.data() !== undefined && (
                     <div className={'fade-in'}>
-                        {/* <--- Header with title and description ---> */}
+                        {/* <--- Header with createdAt date, title and description ---> */}
+
+                        <div className={'text-xs opacity-30 mb-1 text-end'}>
+                            {value && getDate(value.data()?.createdAt?.seconds)}
+                        </div>
+
                         <div className={'text-4xl md:text-5xl font-bold'}>
                             {value && value.data()?.title}
                         </div>
 
-                        <div className={'text-white-dark text-xl mt-5 w-full'}>
+                        <div className={'text-white-dark text-xl mt-3 w-full'}>
                             {value && value.data()?.description}
                         </div>
 

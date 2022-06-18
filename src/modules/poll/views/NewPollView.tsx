@@ -15,6 +15,7 @@ import {MdSave} from "react-icons/md";
 import EditableAnswerItem from "../components/EditableAnswerItem";
 import app from "../../../core/config/firebase";
 import {doc, getFirestore, serverTimestamp, setDoc} from "firebase/firestore";
+import {useTitle} from "../../../core/helpers/useTitle";
 
 export const initialAnswersList: IAnswer[] =
     [
@@ -167,6 +168,8 @@ const NewPollView: React.FC = () => {
 
         return false;
     }
+
+    useTitle("New: " + titleValue)
 
     return (
         <div className={'grid place-items-center w-full'}>
