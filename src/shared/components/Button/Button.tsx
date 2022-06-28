@@ -8,7 +8,7 @@
 
 import React from 'react';
 
-interface IButtonProps {
+export interface IButtonProps {
     text: string
     icon?: React.ReactNode;
     onClick: () => void;
