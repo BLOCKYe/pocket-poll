@@ -16,6 +16,7 @@ import EditableAnswerItem from "../components/EditableAnswerItem";
 import app from "../../../core/config/firebase";
 import {doc, getFirestore, serverTimestamp, setDoc} from "firebase/firestore";
 import {useTitle} from "../../../core/helpers/useTitle";
+import {IPollData} from "../interfaces/IPollData";
 
 export const initialAnswersList: IAnswer[] =
     [
@@ -135,7 +136,7 @@ const NewPollView: React.FC = () => {
             const pollRef = doc(getFirestore(app), 'polls', generatedId)
             const parseAnswers = answers.slice(0, -1)
 
-            const data: any = {
+            const data: IPollData = {
                 id: generatedId,
                 title: titleValue,
                 description: descriptionValue,

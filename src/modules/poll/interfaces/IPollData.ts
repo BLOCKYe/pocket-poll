@@ -1,5 +1,7 @@
+import {FieldValue} from "@firebase/firestore";
+
 export interface IPollData {
-    createdAt:   CreatedAt;
+    createdAt:   FieldValue;
     description: string;
     id:          string;
     answers:     Answer[];
